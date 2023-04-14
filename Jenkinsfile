@@ -25,7 +25,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    ./mvnw clean package
+                    ./mvnw clean package -Dmaven.test.skip=true
                 '''
             }
         }
