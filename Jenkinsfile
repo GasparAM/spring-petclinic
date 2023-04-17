@@ -12,7 +12,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    apk add --no-cache docker
+                    sudo apk add --no-cache docker
                 '''
             }
         }
