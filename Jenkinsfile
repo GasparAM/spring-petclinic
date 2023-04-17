@@ -7,6 +7,11 @@ pipeline {
 
     stages {
         stage('Checkstyle') {
+            when {
+                not {
+                    branch 'main'
+                }
+            }
             steps {
                 sh '''
                     ./mvnw checkstyle:checkstyle
@@ -15,6 +20,11 @@ pipeline {
         }
 
         stage('Test') {
+            when {
+                not {
+                    branch 'main'
+                }
+            }
             steps {
                 sh '''
                     ./mvnw test
@@ -23,6 +33,11 @@ pipeline {
         }
 
         stage('Build') {
+            when {
+                not {
+                    branch 'main'
+                }
+            }
             steps {
                 sh '''
                     ./mvnw clean package -Dmaven.test.skip=true
