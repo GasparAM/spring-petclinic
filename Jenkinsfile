@@ -45,7 +45,7 @@ pipeline {
             }
         }
 
-        stage('Docker up') {
+        stage('Docker up main') {
             when {
                 branch 'main'
             }
@@ -56,7 +56,7 @@ pipeline {
             }
         }
 
-        stage('Docker up') {
+        stage('Docker up mr') {
             when {
                 not {
                     branch 'main'
@@ -69,7 +69,7 @@ pipeline {
             }
         }
 
-        stage('Push') {
+        stage('Push main') {
             when {
                 branch 'main'
             }
@@ -83,7 +83,7 @@ pipeline {
             }
         }
 
-        stage('Push') {
+        stage('Push mr') {
             when {
                 not {
                     branch 'main'
