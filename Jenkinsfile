@@ -15,6 +15,7 @@ pipeline {
             steps {
                 sh '''
                     echo "mvnw checkstyle:checkstyle"
+                    echo "brnch" + env.BRANCH_NAME
                 '''
             }
         }
