@@ -45,6 +45,7 @@ pipeline {
             }
             steps {
                 sh '''
+                    service docker start
                     docker build -t "gavetisyangd/main:${GIT_COMMIT}" ./ 
                 '''
             }
@@ -56,6 +57,7 @@ pipeline {
             }
             steps {
                 sh '''
+                    service docker start
                     docker build -t "gavetisyangd/mr:${GIT_COMMIT}" ./ 
                 '''
             }
