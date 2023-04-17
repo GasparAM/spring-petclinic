@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Docker setup') {
             when {
-                expression {env.JENKINS_CLOUD_ID == '*docker*'}
+                expression {env.JENKINS_CLOUD_ID == 'docker'}
             }
             steps {
                 sh '''
