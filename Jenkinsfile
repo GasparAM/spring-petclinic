@@ -9,7 +9,7 @@ pipeline {
         stage('Checkstyle') {
             when {
                 not {
-                    branch '*/main'
+                    branch 'origin/main'
                 }
             }
             steps {
@@ -24,7 +24,7 @@ pipeline {
         stage('Test') {
             when {
                 not {
-                    branch '*/main'
+                    branch 'origin/main'
                 }
             }
             steps {
@@ -37,7 +37,7 @@ pipeline {
         stage('Build') {
             when {
                 not {
-                    branch '*/main'
+                    branch 'origin/main'
                 }
             }
             steps {
@@ -49,7 +49,7 @@ pipeline {
 
         stage('Docker up main') {
             when {
-                branch '*/main'
+                branch 'origin/main'
             }
             steps {
                 sh '''
@@ -61,7 +61,7 @@ pipeline {
         stage('Docker up mr') {
             when {
                 not {
-                    branch '*/main'
+                    branch 'origin/main'
                 }
             }
             steps {
@@ -73,7 +73,7 @@ pipeline {
 
         stage('Push main') {
             when {
-                branch '*/main'
+                branch 'origin/main'
             }
             steps {
                 withCredentials([string(credentialsId: 'dhub', variable: 'TOKEN')]) {
@@ -88,7 +88,7 @@ pipeline {
         stage('Push mr') {
             when {
                 not {
-                    branch '*/main'
+                    branch 'origin/main'
                 }
             }
             steps {
