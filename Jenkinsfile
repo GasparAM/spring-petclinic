@@ -64,7 +64,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    docker build -t "gavetisyangd/main:${GIT_COMMIT}" ./ 
+                    docker build -t "gavetisyangd/mr:${GIT_COMMIT}" ./ 
                 '''
             }
         }
@@ -93,7 +93,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'dhub', variable: 'TOKEN')]) {
                     sh '''
                         echo $TOKEN | docker login -u gavetisyangd --password-stdin
-                        docker push "gavetisyangd/main:${GIT_COMMIT}"
+                        docker push "gavetisyangd/mr:${GIT_COMMIT}"
                     '''
                 }
             }
