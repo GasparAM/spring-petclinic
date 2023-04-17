@@ -15,6 +15,8 @@ pipeline {
             steps {
                 sh '''
                     echo "mvnw checkstyle:checkstyle"
+                    printenv
+                    env
                 '''
             }
         }
