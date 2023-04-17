@@ -6,16 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Docker setup') {
-            when {
-                expression {env.JENKINS_CLOUD_ID == 'docker'}
-            }
-            steps {
-                sh '''
-                    apk add docker
-                '''
-            }
-        }
         stage('Checkstyle') {
             when {
                 expression {env.GIT_BRANCH != 'origin/main'}
