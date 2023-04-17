@@ -12,7 +12,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "mvnw checkstyle:checkstyle"
+                    ./mvnw checkstyle:checkstyle
                 '''
             }
         }
@@ -23,7 +23,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "mvnw test"
+                    ./mvnw test
                 '''
             }
         }
@@ -34,7 +34,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "mvnw clean package -Dmaven.test.skip=true"
+                    ./mvnw clean package -Dmaven.test.skip=true
                 '''
             }
         }
@@ -45,7 +45,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "docker build -t "gavetisyangd/main:${GIT_COMMIT}" ./ "
+                    docker build -t "gavetisyangd/main:${GIT_COMMIT}" ./ 
                 '''
             }
         }
@@ -56,7 +56,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "docker build -t "gavetisyangd/mr:${GIT_COMMIT}" ./ "
+                    docker build -t "gavetisyangd/mr:${GIT_COMMIT}" ./ 
                 '''
             }
         }
@@ -69,7 +69,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'dhub', variable: 'TOKEN')]) {
                     sh '''
                         echo $TOKEN | docker login -u gavetisyangd --password-stdin
-                        echo "docker push "gavetisyangd/main:${GIT_COMMIT}""
+                        docker push "gavetisyangd/main:${GIT_COMMIT}"
                     '''
                 }
             }
@@ -83,7 +83,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'dhub', variable: 'TOKEN')]) {
                     sh '''
                         echo $TOKEN | docker login -u gavetisyangd --password-stdin
-                        echo "docker push "gavetisyangd/mr:${GIT_COMMIT}""
+                        docker push "gavetisyangd/mr:${GIT_COMMIT}"
                     '''
                 }
             }
