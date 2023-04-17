@@ -9,13 +9,12 @@ pipeline {
         stage('Checkstyle') {
             when {
                 not {
-                    branch "*origin/main"
+                    branch '*/main'
                 }
             }
             steps {
                 sh '''
                     echo "mvnw checkstyle:checkstyle"
-                    echo "brnch" + env.BRANCH_NAME
                 '''
             }
         }
@@ -23,7 +22,7 @@ pipeline {
         stage('Test') {
             when {
                 not {
-                    branch "*origin/main"
+                    branch '*/main'
                 }
             }
             steps {
@@ -36,7 +35,7 @@ pipeline {
         stage('Build') {
             when {
                 not {
-                    branch "*origin/main"
+                    branch '*/main'
                 }
             }
             steps {
@@ -48,7 +47,7 @@ pipeline {
 
         stage('Docker up main') {
             when {
-                branch "*origin/main"
+                branch '*/main'
             }
             steps {
                 sh '''
@@ -60,7 +59,7 @@ pipeline {
         stage('Docker up mr') {
             when {
                 not {
-                    branch "*origin/main"
+                    branch '*/main'
                 }
             }
             steps {
@@ -72,7 +71,7 @@ pipeline {
 
         stage('Push main') {
             when {
-                branch "*origin/main"
+                branch '*/main'
             }
             steps {
                 withCredentials([string(credentialsId: 'dhub', variable: 'TOKEN')]) {
@@ -87,7 +86,7 @@ pipeline {
         stage('Push mr') {
             when {
                 not {
-                    branch "*origin/main"
+                    branch '*/main'
                 }
             }
             steps {
