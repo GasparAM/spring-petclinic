@@ -8,9 +8,7 @@ pipeline {
     stages {
         stage('Checkstyle') {
             when {
-                not {
-                    branch 'origin/main'
-                }
+                expression {env.GIT_BRANCH != 'origin/master'}
             }
             steps {
                 sh '''
@@ -23,9 +21,7 @@ pipeline {
 
         stage('Test') {
             when {
-                not {
-                    branch 'origin/main'
-                }
+                expression {env.GIT_BRANCH != 'origin/master'}
             }
             steps {
                 sh '''
@@ -36,9 +32,7 @@ pipeline {
 
         stage('Build') {
             when {
-                not {
-                    branch 'origin/main'
-                }
+                expression {env.GIT_BRANCH != 'origin/master'}
             }
             steps {
                 sh '''
@@ -49,7 +43,7 @@ pipeline {
 
         stage('Docker up main') {
             when {
-                branch 'origin/main'
+                expression {env.GIT_BRANCH == 'origin/master'}
             }
             steps {
                 sh '''
@@ -60,9 +54,7 @@ pipeline {
 
         stage('Docker up mr') {
             when {
-                not {
-                    branch 'origin/main'
-                }
+                expression {env.GIT_BRANCH != 'origin/master'}
             }
             steps {
                 sh '''
@@ -73,7 +65,7 @@ pipeline {
 
         stage('Push main') {
             when {
-                branch 'origin/main'
+                expression {env.GIT_BRANCH == 'origin/master'}
             }
             steps {
                 withCredentials([string(credentialsId: 'dhub', variable: 'TOKEN')]) {
@@ -87,9 +79,7 @@ pipeline {
 
         stage('Push mr') {
             when {
-                not {
-                    branch 'origin/main'
-                }
+                expression {env.GIT_BRANCH != 'origin/master'}
             }
             steps {
                 withCredentials([string(credentialsId: 'dhub', variable: 'TOKEN')]) {
