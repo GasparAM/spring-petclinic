@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkstyle') {
             when {
-                expression {env.GIT_BRANCH != 'origin/main'}
+                not {branch 'main'}
             }
             steps {
                 sh '''
@@ -19,7 +19,7 @@ pipeline {
 
         stage('Test') {
             when {
-                expression {env.GIT_BRANCH != 'origin/main'}
+                not {branch 'main'}
             }
             steps {
                 sh '''
@@ -30,7 +30,7 @@ pipeline {
 
         stage('Build') {
             when {
-                expression {env.GIT_BRANCH != 'origin/main'}
+                not {branch 'main'}
             }
             steps {
                 sh '''
@@ -41,7 +41,7 @@ pipeline {
 
         stage('Docker up main') {
             when {
-                expression {env.GIT_BRANCH == 'origin/main'}
+                branch 'main' 
             }
             steps {
                 sh '''
@@ -53,7 +53,7 @@ pipeline {
 
         stage('Docker up mr') {
             when {
-                expression {env.GIT_BRANCH != 'origin/main'}
+                not {branch 'main'}
             }
             steps {
                 sh '''
@@ -65,7 +65,7 @@ pipeline {
 
         stage('Push main') {
             when {
-                expression {env.GIT_BRANCH == 'origin/main'}
+                branch 'main'
             }
             steps {
                 withCredentials([string(credentialsId: 'dhub', variable: 'TOKEN')]) {
@@ -79,7 +79,7 @@ pipeline {
 
         stage('Push mr') {
             when {
-                expression {env.GIT_BRANCH != 'origin/main'}
+                not {branch 'main'}
             }
             steps {
                 withCredentials([string(credentialsId: 'dhub', variable: 'TOKEN')]) {
